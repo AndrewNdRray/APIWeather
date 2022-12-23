@@ -17,6 +17,7 @@
                 {{ Auth::user()->email }}
             </p>
             <hr>
+            <a href="{{ 'weather' }}" type="button" class="btn btn-info">Check Weather in My Region</a>
 
         </div>
     </div>

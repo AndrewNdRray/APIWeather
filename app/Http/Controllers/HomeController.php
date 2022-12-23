@@ -17,10 +17,10 @@ class HomeController extends Controller
      *
      * @return void
      */
-   /* public function __construct()
-    {
-        $this->middleware('auth');
-    }*/
+    /* public function __construct()
+     {
+         $this->middleware('auth');
+     }*/
 
     /**
      * Show the application dashboard.
@@ -68,14 +68,15 @@ class HomeController extends Controller
 
     public function getWeather()
     {
-        $ip = '8.8.8.8';
+        $ip = '9.8.8.9';
         $api_1 = 'https://ipapi.co/' . $ip . '/latlong/';
         $location = file_get_contents($api_1);
         $point = explode(",", $location);
 
 # Part 2 (get weather forecast)
-        $api_2 = 'http://api.openweathermap.org/data/2.5/weather?lat=' . $point[0] . '&lon=' . $point[1] . '&appid=' .env('API_WEATHER_KEY');
-       return  $weather = file_get_contents($api_2);
+        $api_2 = 'http://api.openweathermap.org/data/2.5/weather?lat=' . $point[0] . '&lon=' . $point[1] . '&appid=' . env('API_WEATHER_KEY');
+        return $weather = file_get_contents($api_2);
+
 
 
     }
