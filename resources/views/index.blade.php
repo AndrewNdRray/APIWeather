@@ -18,5 +18,11 @@
             </p>
             <hr>
 
+        </div>
+    </div>
+</div>
+</body>
+
+
 @endsection
 

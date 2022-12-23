@@ -48,7 +48,6 @@ class HomeController extends Controller
 
             if ($isUser) {
                 Auth::login($isUser);
-
                 return redirect('/login');
             } else {
                 $createUser = User::create([
@@ -66,4 +65,19 @@ class HomeController extends Controller
             dd($exception->getMessage());
         }
     }
+
+    public function getWeather()
+    {
+        $ip = '8.8.8.8';
+        $api_1 = 'https://ipapi.co/' . $ip . '/latlong/';
+        $location = file_get_contents($api_1);
+        $point = explode(",", $location);
+
+# Part 2 (get weather forecast)
+        $api_2 = 'http://api.openweathermap.org/data/2.5/weather?lat=' . $point[0] . '&lon=' . $point[1] . '&appid=' .env('API_WEATHER_KEY');
+       return  $weather = file_get_contents($api_2);
+
+
+    }
+
 }

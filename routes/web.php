@@ -23,5 +23,7 @@ Auth::routes();
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 Route::get('/auth/google', [App\Http\Controllers\HomeController::class, 'googleRedirect'])->name('auth.google');
 Route::get('/auth/google/callback', [App\Http\Controllers\HomeController::class, 'loginWithGoogle']);
+Route::get('/weather', [App\Http\Controllers\HomeController::class, 'getWeather']);
+
 
 //Route::get('/callback', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
