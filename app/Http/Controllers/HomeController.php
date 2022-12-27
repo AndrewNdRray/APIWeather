@@ -8,6 +8,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Laravel\Socialite\Facades\Socialite;
 use Exception;
+use function Illuminate\Session\userId;
 
 
 class HomeController extends Controller
@@ -66,16 +67,24 @@ class HomeController extends Controller
         }
     }
 
-    public function getWeather()
+    public function getWeather(Request $request)
     {
-        $ip = '9.8.8.9';
+        $ip = Auth::user()->IP;
         $api_1 = 'https://ipapi.co/' . $ip . '/latlong/';
         $location = file_get_contents($api_1);
         $point = explode(",", $location);
 
 # Part 2 (get weather forecast)
         $api_2 = 'http://api.openweathermap.org/data/2.5/weather?lat=' . $point[0] . '&lon=' . $point[1] . '&appid=' . env('API_WEATHER_KEY');
-        return $weather = file_get_contents($api_2);
+        $weather = file_get_contents($api_2);
+        $weatherApi = array($weather);
+        $weather = str_replace('"', '', $weather);
+        $weatherApi = explode(',',$weather);
+        //dd($weatherApi);
+       // print_r($weatherApi);
+       //return $weatherApi;
+        return  view('weather')->with(['weather' => $weatherApi]);
+
 
 
 
