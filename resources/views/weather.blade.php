@@ -3,7 +3,8 @@
 @section('content')
 
    {{ 'here' }}
-    {{ json_encode($weather)}}
+    {{json_encode($weather)}}
+
 
 @endsection
 

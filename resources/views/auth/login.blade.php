@@ -70,7 +70,7 @@
                                         </a>
                                     @endif
                                     <div class="flex align-items-center justify-end mt-4">
-                                        <a class="text-black bg-indigo-600 hover:bg-red-500 px-10 py-4 w-full rounded-md text-center transition duration-150 ease-in-out"
+                                        <a class="btn btn-warning"
                                            href="{{ route('auth.google') }}">
                                             Login with Google
                                         </a>
