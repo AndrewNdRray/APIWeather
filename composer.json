@@ -14,7 +14,8 @@
         "laravel/tinker": "^2.7",
         "laravel/ui": "^4.1",
         "predis/predis": "^2.0",
-        "socialiteproviders/google": "^4.1"
+        "socialiteproviders/google": "^4.1",
+      "ext-http": "*"
     },
     "require-dev": {
         "fakerphp/faker": "^1.9.1",

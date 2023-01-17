@@ -5,33 +5,41 @@ namespace App\Http\Controllers;
 use App\Models\User;
 use Dotenv\Dotenv;
 use Illuminate\Http\Request;
+use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Cache;
 use Laravel\Socialite\Facades\Socialite;
 use Exception;
 use function Illuminate\Session\userId;
 use Illuminate\Support\Facades\Redis;
+use App\Services\UserService;
 
 
 class HomeController extends Controller
 {
     /**
+     * @var UserService
+     */
+    private $users;
+
+    /**
      * Create a new controller instance.
      *
-     * @return void
+     * @param UserService $users
      */
-    /* public function __construct()
+     public function __construct(UserService $users)
      {
-         $this->middleware('auth');
-     }*/
+        $this->users = $users;
+     }
 
     /**
      * Show the application dashboard.
      *
      * @return \Illuminate\Contracts\Support\Renderable
      */
-    public function index()
+    public function index(Request $request)
     {
-        return view('index');
+        return $this->users->getWeatherWithCurrentUserLocation();
     }
 
     public function googleRedirect()
@@ -66,36 +74,6 @@ class HomeController extends Controller
         } catch (Exception $exception) {
             dd($exception->getMessage());
         }
-    }
-
-    public function getWeather(Request $request)
-    {
-
-        $ip = Auth::user()->IP;
-        $api_1 = 'https://ipapi.co/' . $ip . '/latlong/';
-        $location = file_get_contents($api_1);
-        $point = explode(",", $location);
-
-# Part 2 (get weather forecast)
-        $api_2 = 'http://api.openweathermap.org/data/2.5/weather?lat=' . $point[0] . '&lon=' . $point[1] . '&appid=d72ea127b2eb53d908dba758402f87d6';
-        $weather = file_get_contents($api_2);
-        $weatherApi = array($weather);
-        $weather = str_replace('"', '', $weather);
-        $weatherApi = explode(',', $weather);
-        $redis = Redis::connection();
-
-        $redis->set('user_details', json_encode([
-                $weatherApi
-            ])
-        );
-        $redis = Redis::connection();
-        $response = $redis->get('user_details');
-
-        $responseRedis = json_decode($response);
-        dd($responseRedis);
-        return view('weather')->with(['weather' => $responseRedis]);
-
-
     }
 
 }
