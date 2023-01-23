@@ -6,7 +6,7 @@ namespace App\Services;
 use App\Repositories\UserRepository;
 use App\Services\BaseService;
 
-class UserService
+class UserService extends BaseService
 {
     public function __construct(UserRepository $repo)
     {

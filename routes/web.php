@@ -2,7 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Auth;
-use App\Http\Controllers\HomeController;
+use App\Http\Controllers\UserController;
 
 /*
 |--------------------------------------------------------------------------
@@ -21,10 +21,10 @@ Route::get('/', function () {
 
 Auth::routes();
 
-Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
-Route::get('/auth/google', [App\Http\Controllers\HomeController::class, 'googleRedirect'])->name('auth.google');
-Route::get('/auth/google/callback', [App\Http\Controllers\HomeController::class, 'loginWithGoogle']);
-Route::get('/weather', [App\Http\Controllers\HomeController::class, 'getWeather'])->name('weather');
+Route::get('/home', [App\Http\Controllers\UserController::class, 'index'])->name('home');
+Route::get('/auth/google', [App\Http\Controllers\UserController::class, 'googleRedirect'])->name('auth.google');
+Route::get('/auth/google/callback', [App\Http\Controllers\UserController::class, 'loginWithGoogle']);
+Route::get('/weather', [App\Http\Controllers\UserController::class, 'currentWeather'])->name('weather');
 
 
 //Route::get('/callback', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
